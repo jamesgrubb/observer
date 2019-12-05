@@ -2,6 +2,7 @@ import React, { useEffect, useCallback, useRef } from 'react'
 import {StyledCanvas, StyledCanvasContainer} from './Canvas.Styled'
 import useResizeObserver from '../../hooks/useResizeObserver'
 import { useSound } from '../../hooks/useSound'
+import { scale } from '../../utils/scale'
 
 
 const Canvas = () => {
@@ -13,26 +14,57 @@ const Canvas = () => {
     const rAF = useRef()
     // useSound animation data
     const [handlePlay, loaded, trackData ] = useSound(track.current) 
- 
+    console.log(trackData)
     // const animationData = useRef(data)
-
+// useEffect(()=>{
+//     const { width, height} = cnvRef.current
+//     const context = cnvRef.current.getContext('2d')
+//     const length = trackData.length
+//     console.log(trackData)
+//     trackData.forEach((v,i) => {
+//        const x = scale(i, [0, length], [0, width])
+//        const y = scale(v, [-1, 1], [0, height]) 
+//        if( i === 0){
+//            context.moveTo(x,y)
+//        }else{
+//            context.lineTo(x,y)
+//        }
+//     })
+//     context.lineCap='round';
+//     context.strokeStyle='white';
+//     context.stroke()
+    
+    
+// },[trackData])
 
     useEffect(() => {
         
         const { width, height} = cnvRef.current
         const context = cnvRef.current.getContext('2d')
-        const loop = () => {
+        const length = trackData.length
+        const loop = () => {           
             rAF.current = requestAnimationFrame(loop)
-            console.log(trackData)
-
-            context.clearRect(0, 0, width, height);
             
-            context.fillRect(0,0, trackData[0] * 300, height/2);
+             
+            trackData.forEach((v,i) => {
+             
+                       const x = scale(i, [0, length], [0, width])
+                       const y = scale(v, [-1, 1], [0, height]) 
+                       if( i === 0){
+                           context.moveTo(x,y)
+                       }else{
+                           context.lineTo(x,y)
+                       }
+                    })
+                    context.clearRect(0, 0, 500, 500)
+                    context.lineCap='round';
+                    context.strokeStyle='white';
+                    context.stroke()
         }
         loop()
         return()=> cancelAnimationFrame(rAF.current)
           
-    })
+    },[trackData])
     const [ref, {contentRect}] = useResizeObserver();
     const canvRef = useRef()
     const getContentRect = useCallback(( key ) => {

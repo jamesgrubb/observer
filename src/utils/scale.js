@@ -1,5 +1,4 @@
-
-export const useScale =  (inputY, yRange, xRange) => {
+export const scale =  (inputY, yRange, xRange) => {
     
     const [xMin, xMax] = xRange;
     const [yMin, yMax] = yRange;
