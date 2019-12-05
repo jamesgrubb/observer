@@ -6,9 +6,14 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "styled-components": "^4.4.1",
+    "styled-system": "^5.1.4",
+    "tone": "^13.8.25"
   },
   "scripts": {
     "start": "react-scripts start",
